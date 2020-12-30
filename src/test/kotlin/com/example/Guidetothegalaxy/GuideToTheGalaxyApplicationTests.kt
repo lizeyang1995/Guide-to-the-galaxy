@@ -15,15 +15,22 @@ class GuideToTheGalaxyApplicationTests {
 	final val fileName = "/Users/zeyang.li/Documents/Kotlin_test/Guide-to-the-galaxy/src/test/kotlin/com/example/Guidetothegalaxy/beforeEach.txt"
 	val lines: MutableList<String> = File(fileName).readLines() as MutableList<String>
 
-	@BeforeEach
-	fun setUp() {
-	}
-
 	@Test
 	fun `how much is symbol`() {
 		lines.add("how much is pish tegj glob glob ?")
 		val result = Main().parseToResult(lines, productToCredits, nameToSymbol, mapOfSymbol)
 		assertEquals("pish tegj glob glob is 42", result[0])
+	}
+
+	@Test
+	fun `how many Credits`() {
+		lines.add("how many Credits is glob prok Silver ?")
+		lines.add("how many Credits is glob prok Gold ?")
+		lines.add("how many Credits is glob prok Iron ?")
+		val result = Main().parseToResult(lines, productToCredits, nameToSymbol, mapOfSymbol)
+		assertEquals("glob prok Silver is 68 Credits", result[0])
+		assertEquals("glob prok Gold is 57800 Credits", result[1])
+		assertEquals("glob prok Iron is 782 Credits", result[2])
 	}
 
 }
