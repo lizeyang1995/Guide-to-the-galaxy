@@ -18,8 +18,12 @@ class GuideToTheGalaxyApplicationTests {
 	@Test
 	fun `how much is symbol`() {
 		lines.add("how much is pish tegj glob glob ?")
+		lines.add("how much is tegj pish prok glob ?")
+		lines.add("how much is glob prok pish tegj ?")
 		val result = Main().parseToResult(lines, productToCredits, nameToSymbol, mapOfSymbol)
 		assertEquals("pish tegj glob glob is 42", result[0])
+		assertEquals("tegj pish prok glob is 66", result[1])
+		assertEquals("glob prok pish tegj is 44", result[2])
 	}
 
 	@Test

@@ -32,7 +32,11 @@ class Main {
                 }
                 val parseToSum = parseToSum(parseToSymbol, mapOfSymbol)
                 val namesString = nameList.joinToString(" ")
-                result.add("$namesString is ${parseToSum.toInt()}")
+                if (parseToSum == 0) {
+                    result.add("I have no idea what you are talking about")
+                } else {
+                    result.add("$namesString is ${parseToSum.toInt()}")
+                }
             } else if (splitedLine[1] == "many") {
                 val nameList = splitedLine.subList(indexOfIs + 1, splitedLine.lastIndex - 1)
                 val product = splitedLine[splitedLine.lastIndex - 1]
@@ -44,7 +48,11 @@ class Main {
                 }
                 val parseToSum = parseToSum(parseToSymbol, mapOfSymbol)
                 val namesString = nameList.joinToString(" ")
-                result.add("$namesString ${product} is ${(parseToSum * unitProductCredits!!).toInt()} Credits")
+                if (parseToSum == 0) {
+                    result.add("I have no idea what you are talking about")
+                } else {
+                    result.add("$namesString ${product} is ${(parseToSum * unitProductCredits!!).toInt()} Credits")
+                }
             }
         }
         return result
@@ -93,8 +101,7 @@ class Main {
     val limitedSymbol = listOf<String>("I", "X", "C", "M")
     val noRepeatedSymbol = listOf<String>("D", "L", "V")
     val canBeBehindI = listOf<String>("I", "V", "X")
-    val canBeBehindX = listOf<String>("X", "L", "C")
-    val canBeBehindC = listOf<String>("C", "D", "M")
+    val canBeBehindX = listOf<String>("X", "L", "C", "V", "I")
     val canBeBehindV = listOf<String>("V", "I")
     val canBeBehindL = listOf<String>("V", "I", "X", "L")
     val canBeBehindD = listOf<String>("V", "I", "X", "L", "D", "C")
@@ -111,17 +118,25 @@ class Main {
             }
         }
         for (index in 0..symbolList.size - 2) {
+            val lastIndex = index - 1
             if (symbolList[index] == "I" && !canBeBehindI.contains(symbolList[index + 1])) {
                 return false
             } else if (symbolList[index] == "X" && !canBeBehindX.contains(symbolList[index + 1])) {
                 return false
-            } else if (symbolList[index] == "C" && !canBeBehindC.contains(symbolList[index + 1])) {
-                return false
-            } else if (symbolList[index] == "V" && !canBeBehindV.contains(symbolList[index + 1])) {
+            }  else if (symbolList[index] == "V" && !canBeBehindV.contains(symbolList[index + 1])) {
+                if (lastIndex >= 0 && symbolList[lastIndex] == "I") {
+                    continue
+                }
                 return false
             } else if (symbolList[index] == "L" && !canBeBehindL.contains(symbolList[index + 1])) {
+                if (lastIndex >= 1 && symbolList[lastIndex] == "X" && symbolList[lastIndex - 1] != "I") {
+                    continue
+                }
                 return false
             } else if (symbolList[index] == "D" && !canBeBehindD.contains(symbolList[index + 1])) {
+                if (lastIndex >= 1 && symbolList[lastIndex] == "C" && symbolList[lastIndex - 1] != "X") {
+                    continue
+                }
                 return false
             }
         }
