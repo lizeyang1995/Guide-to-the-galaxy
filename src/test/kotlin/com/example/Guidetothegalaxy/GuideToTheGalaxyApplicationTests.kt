@@ -33,4 +33,11 @@ class GuideToTheGalaxyApplicationTests {
 		assertEquals("glob prok Iron is 782 Credits", result[2])
 	}
 
+	@Test
+	fun `return one sentence when input illegal`() {
+		lines.add("how much wood could a woodchuck chuck if a woodchuck could chuck wood ?")
+		val result = Main().parseToResult(lines, productToCredits, nameToSymbol, mapOfSymbol)
+		assertEquals("I have no idea what you are talking about", result[0])
+	}
+
 }
