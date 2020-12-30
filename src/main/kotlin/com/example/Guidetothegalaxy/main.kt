@@ -3,7 +3,7 @@ package com.example.Guidetothegalaxy
 import java.io.File
 
 class Main {
-    fun parseToResult(lines: List<String>,
+    fun parseToResult(lines: MutableList<String>,
                       productToCredits: MutableMap<String, Float>,
                       nameToSymbol: MutableMap<String, String>,
                       mapOfSymbol: Map<String, Int>): MutableList<String> {
