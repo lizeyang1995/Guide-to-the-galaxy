@@ -40,8 +40,12 @@ class GuideToTheGalaxyApplicationTests {
 	@Test
 	fun `return one sentence when input illegal`() {
 		lines.add("how much wood could a woodchuck chuck if a woodchuck could chuck wood ?")
+		lines.add("how much is glob glob glob glob ?")
+		lines.add("how much is prok pish ?")
 		val result = Main().parseToResult(lines, productToCredits, nameToSymbol, mapOfSymbol)
 		assertEquals("I have no idea what you are talking about", result[0])
+		assertEquals("I have no idea what you are talking about", result[1])
+		assertEquals("I have no idea what you are talking about", result[2])
 	}
 
 }
